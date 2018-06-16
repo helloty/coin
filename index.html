@@ -131,9 +131,9 @@
                 </div>
             </div>
             <div class="row" id="app">
-                <table id="tableList" class="table table-bordered" style="display:none;margin-top: 30px">
+                <table id="tableList" class="table table-bordered" style="display:none;margin-top: 70px">
                     <thead>
-                    <tr>
+                    <tr style="background: #f5f5f5">
                         <th>机构名称</th>
                         <th>投资币种</th>
                         <th>投资额度</th>
@@ -220,7 +220,7 @@
     var NebPay = require("nebpay");
     var nebPay = new NebPay();
 
-    var dappAddress = "n22R6XUbDWCx7UrHhK7fTctqUiF1t9k6hKV";
+    var dappAddress = "n1sc6kQVbs5huH94BmKZWFbLruJfGArJdMS";
     //检查扩展是否已安装
     //如果安装了扩展，var“webExtensionWallet”将被注入到web页面中1
     setTimeout(function () {
@@ -249,7 +249,7 @@
     function cbSearch(resp) {
         var result = resp.result
         if (result === 'null') {
-            layer.msg('没有查到土地信息');
+            layer.msg('没有查到信息');
         } else {
             $('#tableList').show();
             var resultObj = JSON.parse(result);
@@ -276,20 +276,14 @@
         console.log(1);
         var projectId = $('#projectId').val();
         var username = $('#username').val();
-        var toname = $('#toname').val()||'0';
+        var toname = $('#toname').val()||'未知';
         var addr = $('#addr').val()||'';
         var remark = $('#remark').val();
         if (projectId == '') {
-            layer.msg('土地编号不能为空');
+            layer.msg('投资机构不能为空');
             return;
         } else if (username == '') {
-            layer.msg('拥有者不能为空');
-            return;
-        } else if (toname == '') {
-            layer.msg('转给谁不能为空');
-            return;
-        } else if (addr == '') {
-            layer.msg('地址不能为空');
+            layer.msg('虚拟币代号不能为空');
             return;
         }
         var to = dappAddress;
@@ -309,7 +303,8 @@
 
     function cbPush(resp) {
         console.log("response of push: " + resp)
-        //layer.closeAll();
+        layer.closeAll();
+        layer.msg('交易处理中，请稍候');
     }
 
     var app = new Vue({
